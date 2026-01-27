@@ -1779,3 +1779,211 @@ function updateWishlistButtons() {
         }
     });
 }
+
+// ============================================
+// POLICY MODALS
+// ============================================
+
+const policies = {
+    return: {
+        title: 'RETURN POLICY',
+        content: `
+            <h3>30-Day Return Policy</h3>
+            <p>At PLU2O'S CLOSET, we want you to be completely satisfied with your purchase. If you're not happy with your order, we offer a hassle-free return policy.</p>
+
+            <h4>Return Eligibility</h4>
+            <ul>
+                <li>Items must be returned within <strong>30 days</strong> of delivery</li>
+                <li>Items must be <strong>unworn and in original condition</strong></li>
+                <li>Original packaging and tags must be intact</li>
+                <li>Proof of purchase is required</li>
+            </ul>
+
+            <h4>How to Return</h4>
+            <ol>
+                <li>Contact us at <strong>plu2oscloset@gmail.com</strong> or call <strong>(205) 499-0800</strong></li>
+                <li>Include your order number and reason for return</li>
+                <li>We'll provide return instructions and shipping label</li>
+                <li>Ship the item back in its original packaging</li>
+            </ol>
+
+            <h4>Refunds</h4>
+            <p>Once we receive and inspect your return, we'll process your refund within <strong>5-7 business days</strong>. Refunds will be issued to the original payment method.</p>
+
+            <h4>Exchanges</h4>
+            <p>Want a different size? Contact us and we'll help you exchange for the right fit, subject to availability.</p>
+
+            <h4>Non-Returnable Items</h4>
+            <ul>
+                <li>Items worn or showing signs of use</li>
+                <li>Items without original packaging</li>
+                <li>Custom or special order items</li>
+            </ul>
+
+            <p class="policy-contact">Questions? Email us at <strong>plu2oscloset@gmail.com</strong></p>
+        `
+    },
+    terms: {
+        title: 'TERMS OF SERVICE',
+        content: `
+            <h3>Terms of Service</h3>
+            <p><em>Last updated: January 2026</em></p>
+
+            <h4>1. Agreement to Terms</h4>
+            <p>By accessing or using PLU2O'S CLOSET website (www.plu2oscloset.com), you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.</p>
+
+            <h4>2. Products and Pricing</h4>
+            <ul>
+                <li>All products are subject to availability</li>
+                <li>Prices are listed in USD and may change without notice</li>
+                <li>We reserve the right to limit quantities</li>
+                <li>Product images are for illustration; actual items may vary slightly</li>
+            </ul>
+
+            <h4>3. Orders and Payment</h4>
+            <ul>
+                <li>By placing an order, you agree to provide accurate information</li>
+                <li>We reserve the right to refuse or cancel any order</li>
+                <li>Payment is required at time of purchase</li>
+                <li>You are responsible for any applicable taxes</li>
+            </ul>
+
+            <h4>4. Authenticity Guarantee</h4>
+            <p>All products sold by PLU2O'S CLOSET are <strong>100% authentic</strong>. We source directly from authorized retailers and verified suppliers.</p>
+
+            <h4>5. User Accounts</h4>
+            <ul>
+                <li>You are responsible for maintaining account security</li>
+                <li>You must provide accurate account information</li>
+                <li>We may suspend accounts that violate these terms</li>
+            </ul>
+
+            <h4>6. Intellectual Property</h4>
+            <p>All content on this site (logos, images, text) is owned by PLU2O'S CLOSET or its licensors and is protected by copyright laws.</p>
+
+            <h4>7. Limitation of Liability</h4>
+            <p>PLU2O'S CLOSET shall not be liable for any indirect, incidental, or consequential damages arising from your use of our services.</p>
+
+            <h4>8. Contact</h4>
+            <p>For questions about these terms, contact us at <strong>plu2oscloset@gmail.com</strong></p>
+        `
+    },
+    privacy: {
+        title: 'PRIVACY POLICY',
+        content: `
+            <h3>Privacy Policy</h3>
+            <p><em>Last updated: January 2026</em></p>
+
+            <h4>Information We Collect</h4>
+            <p>When you use PLU2O'S CLOSET, we may collect:</p>
+            <ul>
+                <li><strong>Personal Information:</strong> Name, email, phone number, shipping address</li>
+                <li><strong>Payment Information:</strong> Processed securely through our payment providers</li>
+                <li><strong>Account Information:</strong> Login credentials, order history, wishlist</li>
+                <li><strong>Usage Data:</strong> Pages visited, time spent, browser type</li>
+            </ul>
+
+            <h4>How We Use Your Information</h4>
+            <ul>
+                <li>Process and fulfill your orders</li>
+                <li>Send order confirmations and shipping updates</li>
+                <li>Respond to customer service inquiries</li>
+                <li>Send promotional emails (with your consent)</li>
+                <li>Improve our website and services</li>
+            </ul>
+
+            <h4>Information Sharing</h4>
+            <p>We do <strong>NOT</strong> sell your personal information. We may share data with:</p>
+            <ul>
+                <li>Shipping carriers to deliver your orders</li>
+                <li>Payment processors to complete transactions</li>
+                <li>Service providers who help operate our business</li>
+            </ul>
+
+            <h4>Data Security</h4>
+            <p>We use industry-standard security measures including SSL encryption to protect your information.</p>
+
+            <h4>Your Rights</h4>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access your personal data</li>
+                <li>Request correction of inaccurate data</li>
+                <li>Request deletion of your data</li>
+                <li>Opt-out of marketing communications</li>
+            </ul>
+
+            <h4>Cookies</h4>
+            <p>We use cookies to improve your browsing experience and analyze site traffic.</p>
+
+            <h4>Contact Us</h4>
+            <p>For privacy concerns, email us at <strong>plu2oscloset@gmail.com</strong></p>
+        `
+    },
+    shipping: {
+        title: 'SHIPPING INFO',
+        content: `
+            <h3>Shipping Information</h3>
+
+            <h4>Processing Time</h4>
+            <p>Orders are processed within <strong>1-3 business days</strong>. You'll receive a confirmation email with tracking info once your order ships.</p>
+
+            <h4>Shipping Rates</h4>
+            <table class="shipping-table">
+                <tr>
+                    <td><strong>Standard Shipping</strong></td>
+                    <td>$15.00</td>
+                    <td>5-7 business days</td>
+                </tr>
+                <tr>
+                    <td><strong>Orders over $300</strong></td>
+                    <td>FREE</td>
+                    <td>5-7 business days</td>
+                </tr>
+            </table>
+
+            <h4>Shipping Areas</h4>
+            <p>We currently ship to all 50 US states. International shipping coming soon!</p>
+
+            <h4>Order Tracking</h4>
+            <p>Once your order ships, you'll receive an email with tracking information. You can also view order status in your account under "My Orders".</p>
+
+            <h4>Delivery Issues</h4>
+            <p>If your package is lost, damaged, or delayed, please contact us immediately at:</p>
+            <ul>
+                <li>Email: <strong>plu2oscloset@gmail.com</strong></li>
+                <li>Phone: <strong>(205) 499-0800</strong></li>
+                <li>Instagram: <strong>@plu2ocloset</strong></li>
+            </ul>
+
+            <h4>Local Pickup</h4>
+            <p>Located in Tuscaloosa, AL? Contact us to arrange local pickup and save on shipping!</p>
+        `
+    }
+};
+
+function openPolicyModal(policyType) {
+    const policy = policies[policyType];
+    if (!policy) return;
+
+    document.getElementById('policyTitle').textContent = policy.title;
+    document.getElementById('policyBody').innerHTML = policy.content;
+    document.getElementById('policyModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePolicyModal() {
+    document.getElementById('policyModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close on background click
+document.getElementById('policyModal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'policyModal') closePolicyModal();
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('policyModal')?.classList.contains('active')) {
+        closePolicyModal();
+    }
+});
