@@ -1788,37 +1788,29 @@ const policies = {
     return: {
         title: 'RETURN POLICY',
         content: `
-            <h3>30-Day Return Policy</h3>
-            <p>At PLU2O'S CLOSET, we want you to be completely satisfied with your purchase. If you're not happy with your order, we offer a hassle-free return policy.</p>
+            <h3>All Sales Are Final</h3>
+            <p>At PLU2O'S CLOSET, <strong>all sales are final</strong>. We do not accept returns or offer refunds.</p>
 
-            <h4>Return Eligibility</h4>
+            <h4>Why No Returns?</h4>
+            <p>Due to the nature of our business and the authenticity of our products, we cannot accept returns. Each pair of sneakers is carefully inspected and verified before shipping.</p>
+
+            <h4>Before You Buy</h4>
             <ul>
-                <li>Items must be returned within <strong>30 days</strong> of delivery</li>
-                <li>Items must be <strong>unworn and in original condition</strong></li>
-                <li>Original packaging and tags must be intact</li>
-                <li>Proof of purchase is required</li>
+                <li><strong>Know your size</strong> - Check our size guide or contact us if unsure</li>
+                <li><strong>Ask questions</strong> - DM us on Instagram or email before purchasing</li>
+                <li><strong>Review photos carefully</strong> - What you see is what you get</li>
             </ul>
 
-            <h4>How to Return</h4>
-            <ol>
-                <li>Contact us at <strong>plu2oscloset@gmail.com</strong> or call <strong>(205) 499-0800</strong></li>
-                <li>Include your order number and reason for return</li>
-                <li>We'll provide return instructions and shipping label</li>
-                <li>Ship the item back in its original packaging</li>
-            </ol>
-
-            <h4>Refunds</h4>
-            <p>Once we receive and inspect your return, we'll process your refund within <strong>5-7 business days</strong>. Refunds will be issued to the original payment method.</p>
-
-            <h4>Exchanges</h4>
-            <p>Want a different size? Contact us and we'll help you exchange for the right fit, subject to availability.</p>
-
-            <h4>Non-Returnable Items</h4>
+            <h4>Damaged or Wrong Item?</h4>
+            <p>If your order arrives damaged or you receive the wrong item, contact us within <strong>48 hours</strong> of delivery with photos. We'll make it right.</p>
             <ul>
-                <li>Items worn or showing signs of use</li>
-                <li>Items without original packaging</li>
-                <li>Custom or special order items</li>
+                <li>Email: <strong>plu2oscloset@gmail.com</strong></li>
+                <li>Phone: <strong>(205) 499-0800</strong></li>
+                <li>Instagram: <strong>@plu2ocloset</strong></li>
             </ul>
+
+            <h4>Questions About Sizing?</h4>
+            <p>Not sure about your size? Reach out before you order and we'll help you find the right fit.</p>
 
             <p class="policy-contact">Questions? Email us at <strong>plu2oscloset@gmail.com</strong></p>
         `
