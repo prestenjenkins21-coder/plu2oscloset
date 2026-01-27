@@ -1,0 +1,8 @@
+{
+  "name": "plu2oscloset",
+  "version": "1.0.0",
+  "description": "PLU2O'S CLOSET - Premium Sneakers",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}

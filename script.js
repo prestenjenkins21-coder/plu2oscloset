@@ -251,7 +251,46 @@ const cartCount = document.querySelector('.cart-count');
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts('all');
     setupEventListeners();
+    checkPaymentStatus();
 });
+
+// Check if returning from Stripe payment
+function checkPaymentStatus() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (urlParams.get('success') === 'true') {
+        // Payment successful
+        showPaymentSuccess();
+        // Clear URL params
+        window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (urlParams.get('canceled') === 'true') {
+        // Payment canceled
+        alert('Payment was canceled. Your cart items are still saved.');
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+}
+
+function showPaymentSuccess() {
+    // Create success modal
+    const successModal = document.createElement('div');
+    successModal.className = 'payment-success-modal';
+    successModal.innerHTML = `
+        <div class="payment-success-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>PAYMENT SUCCESSFUL!</h2>
+            <p>Thank you for your order. You will receive a confirmation email shortly.</p>
+            <p class="success-note">We'll ship your kicks within 1-3 business days.</p>
+            <button onclick="this.closest('.payment-success-modal').remove()">CONTINUE SHOPPING</button>
+        </div>
+    `;
+    document.body.appendChild(successModal);
+
+    // Clear the cart
+    cart = [];
+    updateCart();
+}
 
 // Render products to grid
 function renderProducts(filter = 'all') {
@@ -1284,6 +1323,10 @@ deleteAccountBtn.addEventListener('click', async () => {
 // CHECKOUT & ORDER SYSTEM
 // ============================================
 
+// Stripe Configuration
+const STRIPE_PUBLIC_KEY = 'pk_test_51SuJQcCsCQoekZjfQ0TRKTssAFIwOaNOzr14Y72cMSNAgxidieRfQPzQ2sqmfeh5jZijwEj5HyIC2yXKOxI86vJj00Qz3jcBJI';
+const stripe = Stripe(STRIPE_PUBLIC_KEY);
+
 // EmailJS Configuration
 const EMAILJS_PUBLIC_KEY = 'KRrEhEDbdKrYiIeS4';
 const EMAILJS_SERVICE_ID = 'service_z5rsgz9';
@@ -1304,17 +1347,6 @@ function openCheckoutModal() {
     checkoutModal.classList.add('active');
     document.body.style.overflow = 'hidden';
     closeCart();
-
-    // Pre-fill email if logged in
-    const user = auth.currentUser;
-    if (user) {
-        document.getElementById('checkoutEmail').value = user.email;
-        if (currentUserData?.name) {
-            const nameParts = currentUserData.name.split(' ');
-            document.getElementById('checkoutFirstName').value = nameParts[0] || '';
-            document.getElementById('checkoutLastName').value = nameParts.slice(1).join(' ') || '';
-        }
-    }
 
     // Populate order summary
     updateCheckoutSummary();
@@ -1362,110 +1394,35 @@ function updateCheckoutSummary() {
     `;
 }
 
-// Place Order
+// Place Order - Redirect to Stripe Checkout
 placeOrderBtn.addEventListener('click', async () => {
-    // Validate form
-    const firstName = document.getElementById('checkoutFirstName').value.trim();
-    const lastName = document.getElementById('checkoutLastName').value.trim();
-    const email = document.getElementById('checkoutEmail').value.trim();
-    const phone = document.getElementById('checkoutPhone').value.trim();
-    const address = document.getElementById('checkoutAddress').value.trim();
-    const city = document.getElementById('checkoutCity').value.trim();
-    const state = document.getElementById('checkoutState').value.trim();
-    const zip = document.getElementById('checkoutZip').value.trim();
-
-    if (!firstName || !lastName || !email || !phone || !address || !city || !state || !zip) {
-        checkoutError.textContent = 'Please fill in all fields';
-        return;
-    }
-
     placeOrderBtn.disabled = true;
-    placeOrderBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING...';
+    placeOrderBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> REDIRECTING TO PAYMENT...';
     checkoutError.textContent = '';
 
     try {
-        // Generate order number
-        const orderNumber = 'PLU-' + Date.now().toString(36).toUpperCase();
-
-        // Calculate totals
-        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const shipping = subtotal >= 300 ? 0 : 15;
-        const total = subtotal + shipping;
-
-        // Create order object
-        const order = {
-            orderNumber: orderNumber,
-            customer: {
-                firstName,
-                lastName,
-                email,
-                phone,
-                address,
-                city,
-                state,
-                zip,
-                country: 'US'
-            },
-            items: cart.map(item => ({
-                name: item.name,
-                colorway: item.colorway,
-                size: item.size,
-                quantity: item.quantity,
-                price: item.price
-            })),
-            subtotal,
-            shipping,
-            total,
-            status: 'pending',
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        };
-
-        // Save order to Firestore
-        await db.collection('orders').doc(orderNumber).set(order);
-
-        // If user is logged in, add order to their account
+        // Get customer email if logged in
         const user = auth.currentUser;
-        if (user) {
-            await db.collection('users').doc(user.uid).update({
-                orders: firebase.firestore.FieldValue.arrayUnion(orderNumber)
-            });
+        const customerEmail = user?.email || null;
+
+        // Call our serverless function to create Stripe Checkout session
+        const response = await fetch('/.netlify/functions/create-checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                items: cart,
+                customerEmail: customerEmail
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            throw new Error(data.error);
         }
 
-        // Send email notification to owners
-        const itemsList = cart.map(item =>
-            `- ${item.name} "${item.colorway}" | Size: ${item.size} | Qty: ${item.quantity} | $${item.price}`
-        ).join('\n');
-
-        // Send to both owner emails
-        for (const ownerEmail of OWNER_EMAILS) {
-            try {
-                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                    to_email: ownerEmail,
-                    order_number: orderNumber,
-                    customer_name: `${firstName} ${lastName}`,
-                    customer_email: email,
-                    customer_phone: phone,
-                    shipping_address: `${address}, ${city}, ${state} ${zip}`,
-                    order_items: itemsList,
-                    order_total: `$${total.toFixed(2)}`,
-                    order_date: new Date().toLocaleString()
-                });
-            } catch (emailError) {
-                console.error('Email notification failed for ' + ownerEmail + ':', emailError);
-                // Continue anyway - order is saved
-            }
-        }
-
-        // Show success
-        checkoutBody.innerHTML = `
-            <div class="order-success">
-                <i class="fas fa-check-circle"></i>
-                <h3>ORDER PLACED!</h3>
-                <p>Thank you for your order. We'll send a confirmation email shortly.</p>
-                <div class="order-number">${orderNumber}</div>
-                <button class="settings-btn" onclick="location.reload()">CONTINUE SHOPPING</button>
-            </div>
-        `;
+        // Redirect to Stripe Checkout
+        window.location.href = data.url;
 
         // Clear cart
         cart = [];
@@ -1473,9 +1430,9 @@ placeOrderBtn.addEventListener('click', async () => {
 
     } catch (error) {
         console.error('Order error:', error);
-        checkoutError.textContent = 'Error placing order. Please try again.';
+        checkoutError.textContent = 'Error connecting to payment. Please try again.';
         placeOrderBtn.disabled = false;
-        placeOrderBtn.innerHTML = '<i class="fas fa-lock"></i> PLACE ORDER';
+        placeOrderBtn.innerHTML = '<i class="fas fa-credit-card"></i> PAY WITH CARD';
     }
 });
 
