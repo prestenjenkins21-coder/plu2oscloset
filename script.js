@@ -270,7 +270,51 @@ function checkPaymentStatus() {
     }
 }
 
-function showPaymentSuccess() {
+async function showPaymentSuccess() {
+    // Get the pending order from localStorage
+    const pendingOrderStr = localStorage.getItem('pendingOrder');
+
+    if (pendingOrderStr) {
+        try {
+            const pendingOrder = JSON.parse(pendingOrderStr);
+            const orderNumber = 'PLU-' + Date.now().toString(36).toUpperCase();
+
+            // Send email notification to owners
+            const itemsList = pendingOrder.items.map(item =>
+                `- ${item.name} "${item.colorway}" | Size: ${item.size} | Qty: ${item.quantity} | $${item.price}`
+            ).join('\n');
+
+            const total = pendingOrder.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = total >= 300 ? 0 : 15;
+            const finalTotal = total + shipping;
+
+            // Send to both owner emails
+            for (const ownerEmail of OWNER_EMAILS) {
+                try {
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                        to_email: ownerEmail,
+                        order_number: orderNumber,
+                        customer_name: 'Stripe Customer',
+                        customer_email: pendingOrder.customerEmail || 'Check Stripe Dashboard',
+                        customer_phone: 'Check Stripe Dashboard',
+                        shipping_address: 'Check Stripe Dashboard for shipping details',
+                        order_items: itemsList,
+                        order_total: `$${finalTotal.toFixed(2)} (PAID via Stripe)`,
+                        order_date: new Date().toLocaleString()
+                    });
+                    console.log('Email sent to ' + ownerEmail);
+                } catch (emailError) {
+                    console.error('Email notification failed for ' + ownerEmail + ':', emailError);
+                }
+            }
+
+            // Clear pending order
+            localStorage.removeItem('pendingOrder');
+        } catch (e) {
+            console.error('Error processing pending order:', e);
+        }
+    }
+
     // Create success modal
     const successModal = document.createElement('div');
     successModal.className = 'payment-success-modal';
@@ -280,7 +324,7 @@ function showPaymentSuccess() {
                 <i class="fas fa-check-circle"></i>
             </div>
             <h2>PAYMENT SUCCESSFUL!</h2>
-            <p>Thank you for your order. You will receive a confirmation email shortly.</p>
+            <p>Thank you for your order. You will receive a confirmation email from Stripe shortly.</p>
             <p class="success-note">We'll ship your kicks within 1-3 business days.</p>
             <button onclick="this.closest('.payment-success-modal').remove()">CONTINUE SHOPPING</button>
         </div>
@@ -1404,6 +1448,13 @@ placeOrderBtn.addEventListener('click', async () => {
         // Get customer email if logged in
         const user = auth.currentUser;
         const customerEmail = user?.email || null;
+
+        // Save cart to localStorage so we can send email notification after payment
+        localStorage.setItem('pendingOrder', JSON.stringify({
+            items: cart,
+            customerEmail: customerEmail,
+            timestamp: Date.now()
+        }));
 
         // Call our serverless function to create Stripe Checkout session
         const response = await fetch('/.netlify/functions/create-checkout', {
