@@ -126,43 +126,43 @@ const products = [
     },
     {
         id: 13,
-        name: "Air Jordan 1 Mid",
-        colorway: "Gym Red Black White",
+        name: "Air Jordan 1 Mid (GS)",
+        colorway: "Black/Gym Red",
         price: 200,
-        image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_air-jordan-1-mid-gym-red.jpeg",
-        category: ["kids", "mens"],
+        image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_air-jordan-1-mid-gs-black-gym-red-1.png",
+        category: ["kids"],
         badge: "",
-        description: "The Air Jordan 1 Mid 'Gym Red' delivers classic Jordan style with a versatile mid-top cut and bold red colorway."
+        description: "Grade School sizing of the Air Jordan 1 Mid. Black leather overlays with Gym Red accents on the Swoosh and collar, white midsole for a clean look."
     },
     {
         id: 14,
         name: "Air Jordan 4 Retro (GS)",
         colorway: "Bred",
         price: 200,
-        image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_air-jordan-4-og-bred-2019.png",
+        image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_air-jordan-4-og-gs-bred-2019.jpg",
         category: ["kids", "retro"],
         badge: "",
-        description: "The Grade School Air Jordan 4 Retro 'Bred' brings the iconic black and red colorway to younger fans with authentic details."
+        description: "Grade School sizing of the iconic Air Jordan 4 'Bred'. Black nubuck upper with Fire Red accents and Nike Air branding on the heel."
     },
     {
         id: 15,
-        name: "Air Jordan 1 Retro High OG",
+        name: "Air Jordan 1 High OG (GS)",
         colorway: "Patent Bred",
         price: 200,
         image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_air-jordan-1-high-og-bred-patent.png",
         category: ["kids", "retro", "new"],
         badge: "new",
-        description: "The Air Jordan 1 Retro High OG 'Patent Bred' features glossy patent leather for a premium take on the classic."
+        description: "Grade School sizing of the Air Jordan 1 High OG 'Patent Bred'. Glossy patent leather upper in the iconic black and red colorway."
     },
     {
         id: 16,
         name: "Air Jordan 11 Retro",
         colorway: "Gamma Blue",
         price: 200,
-        image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_air-jordan-11-gamma-blue.jpg",
+        image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_air-jordan-11-gamma.png",
         category: ["mens", "retro", "popular"],
         badge: "popular",
-        description: "The Air Jordan 11 Retro 'Gamma Blue' features a sleek black upper with Gamma Blue accents and the iconic patent leather mudguard for a premium look."
+        description: "The Air Jordan 11 Retro 'Gamma Blue' features a black mesh and patent leather upper with Gamma Blue accents on the Jumpman and lace loops. Varsity Maize hints on tongue branding."
     },
     {
         id: 17,
@@ -178,7 +178,7 @@ const products = [
         id: 18,
         name: "Gucci Ace",
         colorway: "Black Leather with Web",
-        price: 200,
+        price: 320,
         image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_gucci-ace-with-web-black-leather-s.png",
         category: ["mens", "womens", "designer", "new"],
         badge: "new",
@@ -188,7 +188,7 @@ const products = [
         id: 19,
         name: "Louis Vuitton LV Trainer",
         colorway: "White",
-        price: 200,
+        price: 320,
         image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_louis-vuitton-lv-trainer-white.png",
         category: ["mens", "designer", "popular"],
         badge: "popular",
@@ -198,7 +198,7 @@ const products = [
         id: 20,
         name: "Balenciaga Triple S",
         colorway: "Black",
-        price: 200,
+        price: 320,
         image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_balenciaga-triple-s-black.png",
         category: ["mens", "womens", "designer"],
         badge: "",
@@ -208,7 +208,7 @@ const products = [
         id: 21,
         name: "Gucci Ace Studded",
         colorway: "White Leather with Studs",
-        price: 200,
+        price: 320,
         image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_gucci-ace-studded-with-web-white-leather.png",
         category: ["mens", "womens", "designer", "popular"],
         badge: "popular",
@@ -218,11 +218,51 @@ const products = [
         id: 22,
         name: "Dior B23 High-Top",
         colorway: "White/Black Oblique",
-        price: 200,
+        price: 320,
         image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_dior-b23-high-white-black-oblique-canvas.png",
         category: ["mens", "womens", "designer", "new"],
         badge: "new",
         description: "The Dior B23 high-top sneaker features the iconic Dior Oblique motif. Designed under Kim Jones, crafted in Italy with semi-transparent mesh overlays."
+    },
+    {
+        id: 23,
+        name: "Prada America's Cup",
+        colorway: "Black",
+        price: 320,
+        image: "https://www.prada.com/content/dam/pradabkg_products/4/4E6/4E6500/3LLJF0002/4E6500_3LLJ_F0002_F_025_SLR.jpg",
+        category: ["mens", "designer", "new"],
+        badge: "new",
+        description: "Originally designed in the '90s for the Luna Rossa sailing crew. Features soft rubber and bike fabric with a 25mm expanded rubber sole. Made in Italy with Prada Linea Rossa logo badge."
+    },
+    {
+        id: 24,
+        name: "Bottega Veneta Orbit",
+        colorway: "Silver/White/Optic White",
+        price: 320,
+        image: "https://image-cdn.hypb.st/https%3A%2F%2Fs3.store.hypebeast.com%2Fmedia%2Fimage%2F0f%2F0b%2FShoes-2-1-4971b.jpg?fit=max&w=720&q=90",
+        category: ["mens", "womens", "designer", "new"],
+        badge: "new",
+        description: "Lightweight technical mesh uppers with fishnet overlay, reflective panels, and rubber outsole. Runner-inspired design crafted in Italy with premium materials."
+    },
+    {
+        id: 25,
+        name: "Louis Vuitton LV Trainer",
+        colorway: "Black/Black/White",
+        price: 320,
+        image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_louis-vuitton-lv-trainer-black-black-white.png",
+        category: ["mens", "designer", "new"],
+        badge: "new",
+        description: "Designed by Virgil Abloh with vintage basketball inspiration. Smooth and grained calf leather with embossed Monogram pattern. Rubber outsole with Monogram Flowers. Made in Italy."
+    },
+    {
+        id: 26,
+        name: "Air Jordan 6 Retro",
+        colorway: "Reverse Infrared",
+        price: 200,
+        image: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_air-jordan-6-reverse-infrared-black-light-crimson.png",
+        category: ["mens", "retro", "new"],
+        badge: "new",
+        description: "A striking reinterpretation of the classic AJ6. Black nubuck upper with Light Crimson splashed across the midsole, tongue logo, lace lock, and heel tab. Originally designed in 1999, now releasing at retail."
     }
 ];
 
