@@ -1368,7 +1368,7 @@ deleteAccountBtn.addEventListener('click', async () => {
 // ============================================
 
 // Stripe Configuration
-const STRIPE_PUBLIC_KEY = 'pk_test_51SuJQcCsCQoekZjfQ0TRKTssAFIwOaNOzr14Y72cMSNAgxidieRfQPzQ2sqmfeh5jZijwEj5HyIC2yXKOxI86vJj00Qz3jcBJI';
+const STRIPE_PUBLIC_KEY = 'pk_live_51SuJQcCsCQoekZjfp2YSjq5OytDpKMTnbXnyPFOGxKVsERMZDMGsDx1Zd6wKUWNiGljxOueakhbzQ46qGmdXPUQC00a97sQUIs';
 const stripe = Stripe(STRIPE_PUBLIC_KEY);
 
 // EmailJS Configuration
